@@ -3,7 +3,7 @@ This vmod used the Hello World vmod (https://github.com/varnish/libvmod-example/
 You will need to purchase the IP2Location database and install the C class from their developer library to your sever.
 
 ##Prereqs
-============
+==============
 ###Packages:
 1. pkg-config
 2. build-essential
@@ -19,7 +19,7 @@ You will need to purchase the IP2Location database and install the C class from 
 3. IP2Location database needs to exist somewhere on the system. You will be able to specify the location in your VCL.
 
 ##Installation
-============
+==============
     ./autogen.sh
     ./configure VARNISHSRC=DIR [VMODDIR=DIR]
 
