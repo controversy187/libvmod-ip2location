@@ -7,6 +7,7 @@ Makefile.in
 *.la
 *~
 *.[1-9]
+*.gz
 
 /aclocal.m4
 /autom4te.cache/
@@ -28,3 +29,5 @@ Makefile.in
 
 /src/vcc_if.c
 /src/vcc_if.h
+
+varnish_*
