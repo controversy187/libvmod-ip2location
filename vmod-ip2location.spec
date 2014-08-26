@@ -1,19 +1,19 @@
-Summary: Example VMOD for Varnish
-Name: vmod-varnish-%{VARNISHVER}-example
+Summary: IP2Location VMOD for Varnish
+Name: vmod-varnish-%{VARNISHVER}-ip2location
 Version: 0.1
 Release: 1%{?dist}
 License: BSD
 Group: System Environment/Daemons
-Source0: libvmod-example.tar.gz
+Source0: libvmod-ip2location.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Requires: varnish > 3.0
+Requires: varnish > 4.0
 BuildRequires: make, python-docutils
 
 %description
 Example VMOD
 
 %prep
-%setup -n libvmod-example
+%setup -n libvmod-ip2location
 
 %build
 # this assumes that VARNISHSRC is defined on the rpmbuild command line, like this:
@@ -38,5 +38,5 @@ rm -rf %{buildroot}
 %{_mandir}/man?/*
 
 %changelog
-* Tue Nov 14 2012 Lasse Karstensen <lasse@varnish-software.com> - 0.1-0.20121114
+* Tue Aug 26 2014 Brett Fitzgerald <brettgfitzgerald@gmail.com> - 0.1-0.20140826
 - Initial version.

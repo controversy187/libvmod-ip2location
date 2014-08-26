@@ -3,6 +3,7 @@
 
 #include "vrt.h"
 #include "cache/cache.h"
+#include "IP2Location.h"
 
 #include "vcc_if.h"
 

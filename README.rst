@@ -1,63 +1,27 @@
+#IP2Location Vmod
+This vmod used the Hello World vmod (https://github.com/varnish/libvmod-example/tree/master) as a base for a vmod.
+You will need to purchase the IP2Location database and install the C class from their developer library to your sever.
+
+##Prereqs
 ============
-vmod_example
+###Packages:
+1. pkg-config
+2. build-essential
+3. autoconf
+4. libtool
+6. python-docutils
+7. varnish
+8. libvarnishapi-dev
+
+###Other software
+1. Varnish needs to be installed, and the Varnish source available. (eg, if installed from the Debian repo, after following the installation instructions on http://varnish-cache.org, Make sure there is a deb-rc line similar to: "deb-src https://repo.varnish-cache.org/debian/ wheezy varnish-4.0" in your /etc/apt/sources.list.d/varnish-cache.list. This allows you to get the source for your installed package using sudo apt-get source varnish)
+2. IP2Location needs to be built and installed on the system. The source can be gotten from http://ip2location.com/developers
+3. IP2Location database needs to exist somewhere on the system. You will be able to specify the location in your VCL.
+
+##Installation
 ============
-
-----------------------
-Varnish Example Module
-----------------------
-
-:Author: Martin Blix Grydeland
-:Date: 2011-05-26
-:Version: 1.0
-:Manual section: 3
-
-SYNOPSIS
-========
-
-import example;
-
-DESCRIPTION
-===========
-
-Example Varnish vmod demonstrating how to write an out-of-tree Varnish vmod
-for Varnish 3.0 and later.
-
-Implements the traditional Hello World as a vmod.
-
-FUNCTIONS
-=========
-
-hello
------
-
-Prototype
-        ::
-
-                hello(STRING S)
-Return value
-	STRING
-Description
-	Returns "Hello, " prepended to S
-Example
-        ::
-
-                set resp.http.hello = example.hello("World");
-
-INSTALLATION
-============
-
-This is an example skeleton for developing out-of-tree Varnish
-vmods available from the 3.0 release. It implements the "Hello, World!" 
-as a vmod callback. Not particularly useful in good hello world 
-tradition,but demonstrates how to get the glue around a vmod working.
-
-The source tree is based on autotools to configure the building, and
-does also have the necessary bits in place to do functional unit tests
-using the varnishtest tool.
-
-Usage::
-
- ./configure VARNISHSRC=DIR [VMODDIR=DIR]
+    ./autogen.sh
+    ./configure VARNISHSRC=DIR [VMODDIR=DIR]
 
 `VARNISHSRC` is the directory of the Varnish source tree for which to
 compile your vmod. Both the `VARNISHSRC` and `VARNISHSRC/include`
@@ -72,28 +36,3 @@ Make targets:
 * make - builds the vmod
 * make install - installs your vmod in `VMODDIR`
 * make check - runs the unit tests in ``src/tests/*.vtc``
-
-In your VCL you could then use this vmod along the following lines::
-        
-        import example;
-
-        sub vcl_deliver {
-                # This sets resp.http.hello to "Hello, World"
-                set resp.http.hello = example.hello("World");
-        }
-
-HISTORY
-=======
-
-This manual page was released as part of the libvmod-example package,
-demonstrating how to create an out-of-tree Varnish vmod. For further
-examples and inspiration check the vmod directory:
- https://www.varnish-cache.org/vmods
-
-COPYRIGHT
-=========
-
-This document is licensed under the same license as the
-libvmod-example project. See LICENSE for details.
-
-* Copyright (c) 2011 Varnish Software
