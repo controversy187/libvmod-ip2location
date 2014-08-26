@@ -1,2 +1,2 @@
-$Module example 3 Example VMOD
+$Module ip2location 3 IP2Location VMOD
 $Function STRING hello(STRING)
