@@ -1,5 +1,5 @@
 #IP2Location Vmod
-This vmod used the Hello World vmod (https://github.com/varnish/libvmod-example/tree/master) as a base for a vmod.
+This vmod used the Hello World vmod (https://github.com/varnish/libvmod-example/tree/master) as a base for a vmod, and draws heavily on simonvik's MaxMind DB VMOD (https://github.com/simonvik/libvmod_maxminddb).
 You will need to purchase the IP2Location database and install the C class from their developer library to your sever.
 
 ##Prereqs
