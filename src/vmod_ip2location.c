@@ -30,4 +30,3 @@ vmod_init_db(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *file
 
 	priv->free = freeit;
 }
-
