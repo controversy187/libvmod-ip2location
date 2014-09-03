@@ -3,7 +3,7 @@ AM_CPPFLAGS = @VMOD_INCLUDES@
 vmoddir = @VMOD_DIR@
 vmod_LTLIBRARIES = libvmod_ip2location.la
 
-libvmod_ip2location_la_LDFLAGS = -module -export-dynamic -avoid-version -shared
+libvmod_ip2location_la_LDFLAGS = -module -export-dynamic -avoid-version -lIP2Location
 
 libvmod_ip2location_la_SOURCES = \
 	vcc_if.c \
@@ -25,4 +25,6 @@ EXTRA_DIST = \
 	vmod_ip2location.vcc \
 	$(VMOD_TESTS)
 
-CLEANFILES = $(builddir)/vcc_if.c $(builddir)/vcc_if.h
+CLEANFILES = $(builddir)/vcc_if.c $(builddir)/vcc_if.h \
+	$(builddir)/vmod_ip2location.man.rst \
+	$(builddir)/vmod_ip2location.rst
