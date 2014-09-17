@@ -36,3 +36,19 @@ Make targets:
 * make - builds the vmod
 * make install - installs your vmod in `VMODDIR`
 * make check - runs the unit tests in ``src/tests/*.vtc``
+
+##Usage
+==============
+```
+import ip2location;
+
+sub vcl_init{
+  ip2location.init_db("/path/to/ip2location_db.bin");
+}
+
+
+sub vcl_recv {
+  set req.http.X-Time-Zone = ip2location.getTimeZone(client.ip);
+  set req.http.X-Country = ip2location.getCountry(client.ip);
+}
+```
