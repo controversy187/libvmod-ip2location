@@ -16,7 +16,7 @@ You will need to purchase the IP2Location database and install the C class from 
 ###Other software
 1. Varnish needs to be installed, and the Varnish source available. (eg, if installed from the Debian repo, after following the installation instructions on http://varnish-cache.org, Make sure there is a deb-rc line similar to: "deb-src https://repo.varnish-cache.org/debian/ wheezy varnish-4.0" in your /etc/apt/sources.list.d/varnish-cache.list. This allows you to get the source for your installed package using sudo apt-get source varnish)
 2. IP2Location needs to be built and installed on the system. The source can be gotten from http://ip2location.com/developers
-3. IP2Location database needs to exist somewhere on the system. You will be able to specify the location in your VCL.
+3. IP2Location database needs to be placed in the VMOD directory. You will be able to specify the exact location and binfile in your VCL.
 
 ##Installation
 ==============
@@ -45,7 +45,6 @@ import ip2location;
 sub vcl_init{
   ip2location.init_db("/path/to/ip2location_db.bin");
 }
-
 
 sub vcl_recv {
   set req.http.X-Time-Zone = ip2location.getTimeZone(client.ip);
