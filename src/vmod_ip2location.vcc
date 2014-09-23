@@ -1,3 +1,3 @@
 $Module ip2location 3 IP2Location VMOD
 $Function VOID init_db(PRIV_VCL,STRING)
-$Function STRING lookup_tz(PRIV_VCL, IP)
+$Function STRING lookup_tz(PRIV_VCL, STRING)

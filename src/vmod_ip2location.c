@@ -41,7 +41,7 @@ vmod_init_db(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *file
 }
 
 VCL_STRING
-vmod_lookup_tz(const struct vrt_ctx *ctx, struct vmod_priv *priv, const struct suckaddr *ip)
+vmod_lookup_tz(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *ip)
 {
 	IP2Location_open_mem(priv->priv, IP2LOCATION_SHARED_MEMORY);
 	IP2LocationRecord *record = IP2Location_get_all(priv->priv, ip);
