@@ -43,12 +43,15 @@ vmod_init_db(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *file
 VCL_STRING
 vmod_lookup_tz(const struct vrt_ctx *ctx, struct vmod_priv *priv, const struct suckaddr *ip)
 {
-	IP2Location_open_mem(priv->priv, IP2LOCATION_FILE_IO);
+	IP2Location_open_mem(priv->priv, IP2LOCATION_SHARED_MEMORY);
 	IP2LocationRecord *record = IP2Location_get_all(priv->priv, ip);
 
 	if ( record != NULL ){
 		return record->timezone;
 	}
+
+	//Make sure to detatch from the shared memory!
+	IP2Location_close(priv->priv);
 
 	return "test";
 }
