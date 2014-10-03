@@ -29,7 +29,7 @@ vmod_init_db(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *file
 	if (IP2LocationObj == NULL)
 	{
 		printf("Error locating database.\n");
-		return -1;
+		return;
 	}
 
 	priv->priv = IP2LocationObj;
