@@ -28,9 +28,11 @@ vmod_init_db(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *file
 	IP2Location *IP2LocationObj = IP2Location_open(filename);
 	if (IP2LocationObj == NULL)
 	{
-		printf("Error locating database.\n");
 		return;
 	}
+
+	//Attach to the shared memory
+	IP2Location_open_mem(IP2LocationObj, IP2LOCATION_SHARED_MEMORY);
 
 	priv->priv = IP2LocationObj;
 
@@ -43,18 +45,24 @@ vmod_init_db(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *file
 VCL_STRING
 vmod_lookup_tz(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *ip)
 {
-	//Attach to the shared memory
-	IP2Location_open_mem(priv->priv, IP2LOCATION_SHARED_MEMORY);
 
 	//Lookup Record
 	IP2LocationRecord *record = IP2Location_get_all(priv->priv, ip);
 
-	//Make sure to detatch from the shared memory!
-	IP2Location_close(priv->priv);
+	char* timezone;
 
 	if ( record != NULL ){
-		return record->timezone;
+		int tz_len = strlen(record->timezone);
+		char temp_timezone[tz_len+1];
+		strcpy(temp_timezone, record->timezone);
+
+		temp_timezone[tz_len] = '\0';
+		timezone = temp_timezone;
+
+		IP2Location_free_record(record);
+	} else {
+		timezone = "-";
 	}
 
-	return "-";
+	return timezone;
 }
