@@ -45,24 +45,27 @@ vmod_init_db(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *file
 VCL_STRING
 vmod_lookup_tz(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *ip)
 {
+	if( priv->priv != NULL ){
+		//Lookup Record
+		IP2LocationRecord *record = IP2Location_get_all(priv->priv, ip);
 
-	//Lookup Record
-	IP2LocationRecord *record = IP2Location_get_all(priv->priv, ip);
+		char* timezone;
 
-	char* timezone;
+		if ( record != NULL ){
+			int tz_len = strlen(record->timezone);
+			char temp_timezone[tz_len+1];
+			strcpy(temp_timezone, record->timezone);
 
-	if ( record != NULL ){
-		int tz_len = strlen(record->timezone);
-		char temp_timezone[tz_len+1];
-		strcpy(temp_timezone, record->timezone);
+			temp_timezone[tz_len] = '\0';
+			timezone = temp_timezone;
 
-		temp_timezone[tz_len] = '\0';
-		timezone = temp_timezone;
+			IP2Location_free_record(record);
+		} else {
+			timezone = "--";
+		}
 
-		IP2Location_free_record(record);
+		return timezone;
 	} else {
-		timezone = "-";
+		return "-";
 	}
-
-	return timezone;
 }
