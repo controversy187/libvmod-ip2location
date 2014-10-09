@@ -69,3 +69,31 @@ vmod_lookup_tz(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *ip
 		return "-";
 	}
 }
+
+VCL_STRING
+vmod_lookup_country(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *ip)
+{
+	if( priv->priv != NULL ){
+		//Lookup Record
+		IP2LocationRecord *record = IP2Location_get_all(priv->priv, ip);
+
+		char* country;
+
+		if ( record != NULL ){
+			int country_len = strlen(record->country_short);
+			char temp_country[country_len+1];
+			strcpy(temp_country, record->country_short);
+
+			temp_country[country_len] = '\0';
+			country = temp_country;
+
+			IP2Location_free_record(record);
+		} else {
+			country = "--";
+		}
+
+		return country;
+	} else {
+		return "-";
+	}
+}
