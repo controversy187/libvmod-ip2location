@@ -10,12 +10,6 @@
 #include <IP2Location.h>
 #include <string.h>
 
-int
-init_function(struct vmod_priv *priv, const struct VCL_conf *conf)
-{
-	return (0);
-}
-
 void
 freeit(void *data)
 {
