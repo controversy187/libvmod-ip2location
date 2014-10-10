@@ -55,7 +55,7 @@ vmod_lookup_tz(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *ip
 
 			IP2Location_free_record(record);
 		} else {
-			timezone = "--";
+			timezone = "-";
 		}
 
 		return timezone;
@@ -83,7 +83,7 @@ vmod_lookup_country(const struct vrt_ctx *ctx, struct vmod_priv *priv, const cha
 
 			IP2Location_free_record(record);
 		} else {
-			country = "--";
+			country = "-";
 		}
 
 		return country;
