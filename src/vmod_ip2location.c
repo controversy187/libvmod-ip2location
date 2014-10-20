@@ -11,83 +11,54 @@
 #include <string.h>
 
 void
-freeit(void *data)
+freeit(struct vmod_priv *priv)
 {
-	free(data);
+	IP2Location_close(priv->priv);
+	IP2Location_delete_shm(priv->priv);
 }
 
 VCL_VOID
 vmod_init_db(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *filename)
 {
 	IP2Location *IP2LocationObj = IP2Location_open(filename);
-	if (IP2LocationObj == NULL)
-	{
-		return;
-	}
-
-	//Attach to the shared memory
-	IP2Location_open_mem(IP2LocationObj, IP2LOCATION_SHARED_MEMORY);
-
+	IP2Location_open_mem(priv->priv, IP2LOCATION_SHARED_MEMORY);
 	priv->priv = IP2LocationObj;
-
-	if (priv->priv == NULL)
-		return;
-
+	AN(priv->priv);
 	priv->free = freeit;
 }
 
 VCL_STRING
 vmod_lookup_tz(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *ip)
 {
-	if( priv->priv != NULL ){
-		//Lookup Record
+	char *p = NULL;
+	if (priv->priv != NULL) {
 		IP2LocationRecord *record = IP2Location_get_all(priv->priv, ip);
-
-		char* timezone;
-
-		if ( record != NULL ){
-			int tz_len = strlen(record->timezone);
-			char temp_timezone[tz_len+1];
-			strcpy(temp_timezone, record->timezone);
-
-			temp_timezone[tz_len] = '\0';
-			timezone = temp_timezone;
-
+		if (record != NULL) {
+			if (record->timezone != NULL)
+				p = WS_Copy(ctx->ws, record->timezone, -1);
 			IP2Location_free_record(record);
-		} else {
-			timezone = "-";
 		}
-
-		return timezone;
-	} else {
-		return "-";
+		//IP2Location_close(priv->priv);
 	}
+	if (p == NULL)
+		p = WS_Copy(ctx->ws, "-", -1);
+	return (p);
 }
 
 VCL_STRING
 vmod_lookup_country(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *ip)
 {
-	if( priv->priv != NULL ){
-		//Lookup Record
+	char *p = NULL;
+	if (priv->priv != NULL) {
 		IP2LocationRecord *record = IP2Location_get_all(priv->priv, ip);
-
-		char* country;
-
-		if ( record != NULL ){
-			int country_len = strlen(record->country_short);
-			char temp_country[country_len+1];
-			strcpy(temp_country, record->country_short);
-
-			temp_country[country_len] = '\0';
-			country = temp_country;
-
+		if (record != NULL) {
+			if (record->country_short != NULL)
+				p = WS_Copy(ctx->ws, record->country_short, -1);
 			IP2Location_free_record(record);
-		} else {
-			country = "-";
 		}
-
-		return country;
-	} else {
-		return "-";
+		//IP2Location_close(priv->priv);
 	}
+	if (p == NULL)
+		p = WS_Copy(ctx->ws, "-", -1);
+	return (p);
 }
