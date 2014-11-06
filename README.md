@@ -53,5 +53,6 @@ sub vcl_recv {
   set req.http.X-City = ip2location.city(client.ip);
   set req.http.X-ISP = ip2location.isp(client.ip);
   set req.http.X-Domain = ip2location.domain(client.ip);
+  set req.http.X-Zipcode = ip2location.zipcode(client.ip);
 }
 ```
