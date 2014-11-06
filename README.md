@@ -62,5 +62,6 @@ sub vcl_recv {
   set req.http.X-MCC = ip2location.lookup_mcc(client.ip);
   set req.http.X-MNC = ip2location.lookup_mnc(client.ip);
   set req.http.X-Mobile-Brand = ip2location.lookup_mobilebrand(client.ip);
+  set req.http.X-Usage-Type = ip2location.lookup_usagetype(client.ip);
 }
 ```
