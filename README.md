@@ -56,5 +56,6 @@ sub vcl_recv {
   set req.http.X-Zipcode = ip2location.lookup_zipcode(client.ip);
   set req.http.X-Netspeed = ip2location.lookup_netspeed(client.ip);
   set req.http.X-IDDCode = ip2location.lookup_iddcode(client.ip);
+  set req.http.X-Area-Code = ip2location.lookup_areacode(client.ip);
 }
 ```
