@@ -247,3 +247,37 @@ vmod_lookup_weatherstationname(const struct vrt_ctx *ctx, struct vmod_priv *priv
 		p = WS_Copy(ctx->ws, "-", -1);
 	return (p);
 }
+
+VCL_STRING
+vmod_lookup_mcc(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *ip)
+{
+	char *p = NULL;
+	if (priv->priv != NULL) {
+		IP2LocationRecord *record = IP2Location_get_all(priv->priv, ip);
+		if (record != NULL) {
+			if (record->mcc != NULL)
+				p = WS_Copy(ctx->ws, record->mcc, -1);
+			IP2Location_free_record(record);
+		}
+	}
+	if (p == NULL)
+		p = WS_Copy(ctx->ws, "-", -1);
+	return (p);
+}
+
+VCL_STRING
+vmod_lookup_mnc(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *ip)
+{
+	char *p = NULL;
+	if (priv->priv != NULL) {
+		IP2LocationRecord *record = IP2Location_get_all(priv->priv, ip);
+		if (record != NULL) {
+			if (record->mnc != NULL)
+				p = WS_Copy(ctx->ws, record->mnc, -1);
+			IP2Location_free_record(record);
+		}
+	}
+	if (p == NULL)
+		p = WS_Copy(ctx->ws, "-", -1);
+	return (p);
+}

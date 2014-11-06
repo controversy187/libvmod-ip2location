@@ -59,5 +59,7 @@ sub vcl_recv {
   set req.http.X-Area-Code = ip2location.lookup_areacode(client.ip);
   set req.http.X-Weatherstation-Code = ip2location.lookup_weatherstationcode(client.ip);
   set req.http.X-Weatherstation-Name = ip2location.lookup_weatherstationname(client.ip);
+  set req.http.X-MCC = ip2location.lookup_mcc(client.ip);
+  set req.http.X-MNC = ip2location.lookup_mnc(client.ip);
 }
 ```
