@@ -50,5 +50,6 @@ sub vcl_recv {
   set req.http.X-Country = ip2location.lookup_country(client.ip);
   set req.http.X-Country-Long = ip2location.lookup_country_long(client.ip);
   set req.http.X-Country-Long = ip2location.region(client.ip);
+  set req.http.X-Country-Long = ip2location.city(client.ip);
 }
 ```
