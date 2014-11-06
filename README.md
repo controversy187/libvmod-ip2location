@@ -52,5 +52,6 @@ sub vcl_recv {
   set req.http.X-Region = ip2location.region(client.ip);
   set req.http.X-City = ip2location.city(client.ip);
   set req.http.X-ISP = ip2location.isp(client.ip);
+  set req.http.X-Domain = ip2location.domain(client.ip);
 }
 ```
