@@ -49,11 +49,12 @@ sub vcl_recv {
   set req.http.X-Time-Zone = ip2location.lookup_tz(client.ip);
   set req.http.X-Country = ip2location.lookup_country(client.ip);
   set req.http.X-Country-Long = ip2location.lookup_country_long(client.ip);
-  set req.http.X-Region = ip2location.region(client.ip);
-  set req.http.X-City = ip2location.city(client.ip);
-  set req.http.X-ISP = ip2location.isp(client.ip);
-  set req.http.X-Domain = ip2location.domain(client.ip);
-  set req.http.X-Zipcode = ip2location.zipcode(client.ip);
-  set req.http.X-Netspeed = ip2location.netspeed(client.ip);
+  set req.http.X-Region = ip2location.lookup_region(client.ip);
+  set req.http.X-City = ip2location.lookup_city(client.ip);
+  set req.http.X-ISP = ip2location.lookup_isp(client.ip);
+  set req.http.X-Domain = ip2location.lookup_domain(client.ip);
+  set req.http.X-Zipcode = ip2location.lookup_zipcode(client.ip);
+  set req.http.X-Netspeed = ip2location.lookup_netspeed(client.ip);
+  set req.http.X-IDDCode = ip2location.lookup_iddcode(client.ip);
 }
 ```
