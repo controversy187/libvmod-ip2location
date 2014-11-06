@@ -281,3 +281,20 @@ vmod_lookup_mnc(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *i
 		p = WS_Copy(ctx->ws, "-", -1);
 	return (p);
 }
+
+VCL_STRING
+vmod_lookup_mobilebrand(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *ip)
+{
+	char *p = NULL;
+	if (priv->priv != NULL) {
+		IP2LocationRecord *record = IP2Location_get_all(priv->priv, ip);
+		if (record != NULL) {
+			if (record->mobilebrand != NULL)
+				p = WS_Copy(ctx->ws, record->mobilebrand, -1);
+			IP2Location_free_record(record);
+		}
+	}
+	if (p == NULL)
+		p = WS_Copy(ctx->ws, "-", -1);
+	return (p);
+}
