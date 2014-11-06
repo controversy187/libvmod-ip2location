@@ -35,7 +35,6 @@ Make targets:
 
 * make - builds the vmod
 * make install - installs your vmod in `VMODDIR`
-* make check - runs the unit tests in ``src/tests/*.vtc``
 
 ##Usage
 ==============
@@ -47,7 +46,8 @@ sub vcl_init{
 }
 
 sub vcl_recv {
-  set req.http.X-Time-Zone = ip2location.getTimeZone(client.ip);
-  set req.http.X-Country = ip2location.getCountry(client.ip);
+  set req.http.X-Time-Zone = ip2location.lookup_tz(client.ip);
+  set req.http.X-Country = ip2location.lookup_country(client.ip);
+  set req.http.X-Country-Long = ip2location.lookup_country_long(client.ip);
 }
 ```

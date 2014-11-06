@@ -62,3 +62,21 @@ vmod_lookup_country(const struct vrt_ctx *ctx, struct vmod_priv *priv, const cha
 		p = WS_Copy(ctx->ws, "-", -1);
 	return (p);
 }
+
+VCL_STRING
+vmod_lookup_country_long(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *ip)
+{
+	char *p = NULL;
+	if (priv->priv != NULL) {
+		IP2LocationRecord *record = IP2Location_get_all(priv->priv, ip);
+		if (record != NULL) {
+			if (record->country_short != NULL)
+				p = WS_Copy(ctx->ws, record->country_long, -1);
+			IP2Location_free_record(record);
+		}
+		//IP2Location_close(priv->priv);
+	}
+	if (p == NULL)
+		p = WS_Copy(ctx->ws, "-", -1);
+	return (p);
+}
