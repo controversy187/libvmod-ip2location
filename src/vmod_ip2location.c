@@ -68,7 +68,7 @@ vmod_lookup_country_long(const struct vrt_ctx *ctx, struct vmod_priv *priv, cons
 	if (priv->priv != NULL) {
 		IP2LocationRecord *record = IP2Location_get_all(priv->priv, ip);
 		if (record != NULL) {
-			if (record->country_short != NULL)
+			if (record->country_long != NULL)
 				p = WS_Copy(ctx->ws, record->country_long, -1);
 			IP2Location_free_record(record);
 		}
@@ -85,7 +85,7 @@ vmod_lookup_region(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char
 	if (priv->priv != NULL) {
 		IP2LocationRecord *record = IP2Location_get_all(priv->priv, ip);
 		if (record != NULL) {
-			if (record->country_short != NULL)
+			if (record->region != NULL)
 				p = WS_Copy(ctx->ws, record->region, -1);
 			IP2Location_free_record(record);
 		}
@@ -103,7 +103,24 @@ vmod_lookup_city(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *
 		IP2LocationRecord *record = IP2Location_get_all(priv->priv, ip);
 		if (record != NULL) {
 			if (record->city != NULL)
-				p = WS_Copy(ctx->ws, record->region, -1);
+				p = WS_Copy(ctx->ws, record->city, -1);
+			IP2Location_free_record(record);
+		}
+	}
+	if (p == NULL)
+		p = WS_Copy(ctx->ws, "-", -1);
+	return (p);
+}
+
+VCL_STRING
+vmod_lookup_isp(const struct vrt_ctx *ctx, struct vmod_priv *priv, const char *ip)
+{
+	char *p = NULL;
+	if (priv->priv != NULL) {
+		IP2LocationRecord *record = IP2Location_get_all(priv->priv, ip);
+		if (record != NULL) {
+			if (record->isp != NULL)
+				p = WS_Copy(ctx->ws, record->isp, -1);
 			IP2Location_free_record(record);
 		}
 	}
